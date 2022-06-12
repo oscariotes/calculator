@@ -1,0 +1,60 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    height: 100vh;
+}
+
+main{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+   
+
+}
+
+.box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    
+    width: 40rem;
+    height: 30rem;
+    border: solid 2px;
+}
+
+.display_box{
+    display: flex;
+    flex-direction: column;
+    flex-grow: 0;
+}
+
+.buttons_holder{
+    display: flex;
+    flex-direction: column;
+   
+}
+
+.firstRow{
+    display: flex;
+    justify-content: space-between;
+}
+
+.secondRow{
+    display: flex;
+    justify-content: space-between;
+}
+
+.thirdRow{
+    display: flex;
+    justify-content: space-between;
+}
+
+.fourthRow{
+    display: flex;
+    justify-content: space-between;
+}
