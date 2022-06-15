@@ -14,6 +14,10 @@ body {
     background: linear-gradient(#594093, #AF7214)
 }
 
+header, footer{
+    text-align: center;
+}
+
 .calculator {
     max-width: 400px;
     box-shadow: 6px 7px 14px 2px #323230;

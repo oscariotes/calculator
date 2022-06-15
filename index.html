@@ -14,28 +14,33 @@
         <div class="calculator">
             <div class="calculator__wrap">
                 <div class="calculator__display">
-                    0
+                    
+                    <div class="currentOperation"></div>  
+                    <div class="operator"></div>
+                    
+                    <div class="previousOperation"></div>
+                    
                 </div>
                 <div class="calculator__functions">
-                    <button value="clear" class="btn--opaque">AC</button>
-                    <button value="pos-neg" class="btn--opaque">+/-</button>
-                    <button value="%" class="btn--opaque">%</button>
-                    <button value="/" class="btn--opaque">/</button>
-                    <button value="7">7</button>
-                    <button value="8">8</button>
-                    <button value="9">9</button>
-                    <button value="*" class="btn--opaque">*</button>
-                    <button value="4">4</button>
-                    <button value="5">5</button>
-                    <button value="6">6</button>
-                    <button value="-" class="btn--opaque">-</button>
-                    <button value="1">1</button>
-                    <button value="2">2</button>
-                    <button value="3">3</button>
-                    <button value="+" class="btn--opaque">+</button>
-                    <button value="0" class="btn--large">0</button>
-                    <button value=".">.</button>
-                    <button value="=" class="btn--opaque">=</button>
+                    <button value="clear" class="btn--opaque clear">AC</button>
+                    <button value="pos-neg" class="btn--opaque pos-neg">+/-</button>
+                    <button value="%" class="btn--opaque operators">%</button>
+                    <button value="/" class="btn--opaque operators">/</button>
+                    <button value="7" class="number secNumber">7</button>
+                    <button value="8" class="number secNumber">8</button>
+                    <button value="9" class="number secNumber">9</button>
+                    <button value="*" class="btn--opaque operators">*</button>
+                    <button value="4" class="number secNumber">4</button>
+                    <button value="5" class="number secNumber">5</button>
+                    <button value="6" class="number secNumber">6</button>
+                    <button value="-" class="btn--opaque operators">-</button>
+                    <button value="1" class="number secNumber">1</button>
+                    <button value="2" class="number secNumber">2</button>
+                    <button value="3" class="number secNumber">3</button>
+                    <button value="+" class="btn--opaque operators">+</button>
+                    <button value="0" class="btn--large number">0</button>
+                    <button value="." class="number secNumber">.</button>
+                    <button value="=" class="btn--opaque operators equalsX">=</button>
                 </div>
             </div>
         </div>
@@ -44,4 +49,5 @@
     
     
 </body>
+<script src="calc.js "  async defer></script>
 </html>
