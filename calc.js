@@ -53,7 +53,7 @@ let firstNumber = '';
 let secondNumber = '';
 let selectedOperator ='';
 let result ='';
-currentOperation.textContent = 0;
+previousOperation.textContent = 0;
 
 
 
@@ -61,7 +61,7 @@ numero.forEach((numero) => {
   numero.addEventListener('click', function() {
     storedValue += numero.value;
     previousOperation.textContent = storedValue;
-    //calculate();
+    
    
   })
 }); 
@@ -69,23 +69,23 @@ numero.forEach((numero) => {
 operatorS.forEach((operatorS) => {
   operatorS.addEventListener('click', function(){
     selectedOperator += operatorS.value;
-    operator.textContent = selectedOperator;
+    //operator.textContent = selectedOperator;
     firstNumber = storedValue;
-   
-    currentOperation.textContent = storedValue ;
+    previousOperation.textContent = storedValue + selectedOperator;
     storedValue = '';
   })
 });
 
 
-
-
-const calculate = () => {
+equalsX.addEventListener('click', function(){
   const result = operate(parseFloat(firstNumber), parseFloat(storedValue), selectedOperator);
+  previousOperation.textContent = result;
+})
+  
 
-  currentOperation.textContent = result;
-  }
 
-equalsX.addEventListener('click', calculate);
+
+
+
 
 
