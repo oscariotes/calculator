@@ -30,7 +30,7 @@ header, footer{
     text-align: right;
 }
 
-.calculator__functions {
+.calculator_functions {
     display: flex;
     flex-wrap: wrap;
     border: 1px solid rgba(255,255,255, 0.4);
