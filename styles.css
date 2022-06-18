@@ -18,6 +18,10 @@ header, footer{
     text-align: center;
 }
 
+footer{
+    margin-top: 15px;
+}
+
 .calculator {
     max-width: 400px;
     box-shadow: 6px 7px 14px 2px #323230;

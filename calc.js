@@ -11,9 +11,19 @@ function multiply(a, b){
     return a * b;
 }
 
-function divide( a,  b){
+function divide(a, b){
+  if (a === 0 && b === 0) {
+    return 'Error'   //return error if both are zero
+  }else {
     return a / b;
+  }
+    
 } 
+
+function percentage (a, b){
+  return a * (b/100);
+}
+   
 // function to take 2 variable plus the operator
 function operate(firstOperation, inputValue, operator) {
   if (operator === '+') {
@@ -24,7 +34,8 @@ function operate(firstOperation, inputValue, operator) {
     return multiply (firstOperation, inputValue);
   } else if (operator === '/') {
     return divide(firstOperation, inputValue);
-  }
+  } else if (operator === '%')
+    return percentage (firstOperation, inputValue);
     return inputValue;
 }
 
@@ -60,7 +71,9 @@ function operate(firstOperation, inputValue, operator) {
   }
 
   if (target.classList.contains('pos-neg')){
-    console.log('pos_neg', target.value)
+    inputNegative(target.value);
+    refreshDisplay()
+    return;
   }
 
   if (target.classList.contains('decimal')) {
@@ -75,6 +88,18 @@ function operate(firstOperation, inputValue, operator) {
     return;
   }
 
+  if (target.classList.contains('percent')){
+    console.log(target.value);
+    return;
+  }
+
+  if (target.classList.contains('backspace')){
+    backspace();
+    console.log(target.value);
+    refreshDisplay();
+    return;
+  }
+ 
   inputNumber(target.value);
   refreshDisplay();
 });
@@ -84,17 +109,24 @@ function operate(firstOperation, inputValue, operator) {
 //This triggers the performCalculation. It will only stop once the '=' operator click.
 function inputNumber(digit) {
   const { displayContent, incomingSecondOperation } = calculator;
-
   if (incomingSecondOperation === true) {
     calculator.displayContent = digit;
     calculator.incomingSecondOperation = false;
   } else {
     calculator.displayContent = displayContent === '0' ? digit : displayContent + digit;
   }
-
   console.log(calculator);
 }
-
+// toggle negative/positive
+function inputNegative(){
+  const {displayContent} = calculator;
+  let inputValue = parseFloat(displayContent);
+  if (inputValue) {
+     inputValue -= inputValue*2;
+     calculator.displayContent = inputValue;
+  }
+}
+//add decimal and prevent double decimal
   function inputDecimal(dot) {
   if (!calculator.displayContent.includes(dot)) {
     calculator.displayContent += dot;
@@ -104,8 +136,7 @@ function inputNumber(digit) {
     calculator.incomingSecondOperation = false;
     return
   }
-}
-
+} 
 
 function performCalculation(performOperation) {
   const { firstOperation, displayContent, operator } = calculator
@@ -127,7 +158,6 @@ function performCalculation(performOperation) {
   calculator.incomingSecondOperation = true;
   calculator.operator = performOperation;
   console.log(calculator);
-
 }
 
 //Calculator reset
@@ -138,7 +168,15 @@ function all_clear(){
   calculator.operator = null;
   console.log(calculator);
  }
-  
 
-
+ //backspace
+ function backspace(){
+  const {displayContent} = calculator;
+  const firstArr = displayContent;
+  if (firstArr.length > 1){
+    let secArray = firstArr.slice(0, -1)
+    calculator.displayContent = secArray;
+    return;
+  }
+ }
 
