@@ -1,29 +1,29 @@
 //basic math function
-function add(a, b){
-    return a + b;
+function add(a, b) {
+  return a + b;
 }
 
-function subtract(a, b){
-   return a - b;
+function subtract(a, b) {
+  return a - b;
 }
 
-function multiply(a, b){
-    return a * b;
+function multiply(a, b) {
+  return a * b;
 }
 
-function divide(a, b){
+function divide(a, b) {
   if (a === 0 && b === 0) {
     return 'Error'   //return error if both are zero
-  }else {
+  } else {
     return a / b;
   }
-    
-} 
 
-function percentage (a, b){
-  return a * (b/100);
 }
-   
+
+function percentage(a, b) {
+  return a * (b / 100);
+}
+
 // function to take 2 variable plus the operator
 function operate(firstOperation, inputValue, operator) {
   if (operator === '+') {
@@ -31,35 +31,35 @@ function operate(firstOperation, inputValue, operator) {
   } else if (operator === '-') {
     return subtract(firstOperation, inputValue);
   } else if (operator === '*') {
-    return multiply (firstOperation, inputValue);
+    return multiply(firstOperation, inputValue);
   } else if (operator === '/') {
     return divide(firstOperation, inputValue);
   } else if (operator === '%')
-    return percentage (firstOperation, inputValue);
-    return inputValue;
+    return percentage(firstOperation, inputValue);
+  return inputValue;
 }
 
 //Array to hold the variables
 //Variable contained here will keep track of the current state of operation.
-  const calculator = {
-    displayContent: '0',
-    firstOperation: null,
-    incomingSecondOperation: false,
-    operator: null,
-  };
+const calculator = {
+  displayContent: '0',
+  firstOperation: null,
+  incomingSecondOperation: false,
+  operator: null,
+};
 
 //This will update the display when a keys are clicked.
-  function refreshDisplay() {
-    const display = document.querySelector('.calculator__display');
-    display.textContent = calculator.displayContent;
-  }
-  refreshDisplay();
-  
-  //Event listener for all the keys available
-  const keys = document.querySelector('.calculator_functions');
-  keys.addEventListener('click', (event) => {
-  const { target } = event;
-  
+function refreshDisplay() {
+  const display = document.querySelector('.calculator__display');
+  display.textContent = calculator.displayContent;
+}
+refreshDisplay();
+
+//Event listener for calculator buttons.
+const keys = document.querySelector('.calculator_functions');
+keys.addEventListener('click', (Event) => {
+  const { target } = Event;
+
   if (!target.matches('button')) {
     return;
   }
@@ -70,7 +70,7 @@ function operate(firstOperation, inputValue, operator) {
     return;
   }
 
-  if (target.classList.contains('pos-neg')){
+  if (target.classList.contains('pos-neg')) {
     inputNegative(target.value);
     refreshDisplay()
     return;
@@ -88,26 +88,24 @@ function operate(firstOperation, inputValue, operator) {
     return;
   }
 
-  if (target.classList.contains('percent')){
-    console.log(target.value);
+  if (target.classList.contains('percent')) {
     return;
   }
 
-  if (target.classList.contains('backspace')){
+  if (target.classList.contains('backspace')) {
     backspace();
-    console.log(target.value);
     refreshDisplay();
     return;
   }
- 
-  inputNumber(target.value);
+
+  keyInput(target.value);
   refreshDisplay();
 });
 
 //Number initially displays on the screen, when keys are clicked via refreshDisplay().
 //when an operator is selected, the incomingSecondOperation will change state to true. 
 //This triggers the performCalculation. It will only stop once the '=' operator click.
-function inputNumber(digit) {
+function keyInput(digit) {
   const { displayContent, incomingSecondOperation } = calculator;
   if (incomingSecondOperation === true) {
     calculator.displayContent = digit;
@@ -118,25 +116,25 @@ function inputNumber(digit) {
   console.log(calculator);
 }
 // toggle negative/positive
-function inputNegative(){
-  const {displayContent} = calculator;
+function inputNegative() {
+  const { displayContent } = calculator;
   let inputValue = parseFloat(displayContent);
   if (inputValue) {
-     inputValue -= inputValue*2;
-     calculator.displayContent = inputValue;
+    inputValue -= inputValue * 2;
+    calculator.displayContent = inputValue;
   }
 }
 //add decimal and prevent double decimal
-  function inputDecimal(dot) {
+function inputDecimal(dot) {
   if (!calculator.displayContent.includes(dot)) {
     calculator.displayContent += dot;
   }
-  if (calculator.incomingSecondOperation === true){
-    calculator.displayContent ='0.';
+  if (calculator.incomingSecondOperation === true) {
+    calculator.displayContent = '0.';
     calculator.incomingSecondOperation = false;
     return
   }
-} 
+}
 
 function performCalculation(performOperation) {
   const { firstOperation, displayContent, operator } = calculator
@@ -149,9 +147,9 @@ function performCalculation(performOperation) {
   //first value stored in firstOperation.
   if (firstOperation === null && !isNaN(inputValue)) {
     calculator.firstOperation = inputValue;
-  }else if (operator) {
+  } else if (operator) {
     const result = operate(firstOperation, inputValue, operator);
-    calculator.displayContent = String(result);
+    calculator.displayContent = `${parseFloat(result.toFixed(7))}`; 
     calculator.firstOperation = result;
   }
 
@@ -161,22 +159,60 @@ function performCalculation(performOperation) {
 }
 
 //Calculator reset
-function all_clear(){
+function all_clear() {
   calculator.displayContent = '0';
   calculator.firstOperation = null;
   calculator.incomingSecondOperation = false;
   calculator.operator = null;
   console.log(calculator);
- }
+}
 
- //backspace
- function backspace(){
-  const {displayContent} = calculator;
+//backspace
+function backspace() {
+  const { displayContent } = calculator;
   const firstArr = displayContent;
-  if (firstArr.length > 1){
+  if (firstArr.length > 1) {
     let secArray = firstArr.slice(0, -1)
     calculator.displayContent = secArray;
     return;
   }
- }
+}
+
+
+const keyBoard = document.querySelector('.calculator_functions');
+document.addEventListener('keydown', (Event) =>{
+  const {displayContent} = calculator;
+  const keyName = Event.key;
+  if (keyName >='0' && keyName <='9'){
+    keyInput(keyName);
+    refreshDisplay();
+    console.log
+  } else if (keyName == '/' || keyName == '*' || keyName == '-' || keyName == '+' || keyName == '=' || keyName == '%'){
+    performCalculation(keyName);
+    refreshDisplay();
+  } else if (keyName == 'Backspace'){
+    backspace(keyName);
+    refreshDisplay();
+  } else if (keyName == 'Delete'){
+    all_clear();
+    refreshDisplay();
+  } else if (keyName == 'Enter' || keyName == '='){
+    performCalculation();
+    refreshDisplay();
+  } else if (Event.code == '.'){
+    inputDecimal();
+    refreshDisplay();
+  } else {
+    return 'Error'
+  }
+})
+
+
+document.addEventListener('keydown', (Event) =>{
+ console.log(Event.key)
+})
+
+
+
+
 
