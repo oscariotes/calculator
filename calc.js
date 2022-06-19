@@ -199,9 +199,6 @@ document.addEventListener('keydown', (Event) =>{
   } else if (keyName == 'Enter' || keyName == '='){
     performCalculation();
     refreshDisplay();
-  } else if (Event.code == '.'){
-    inputDecimal();
-    refreshDisplay();
   } else {
     return 'Error'
   }
