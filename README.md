@@ -6,4 +6,5 @@ Basic calculator using javascipt. Reference guide for practice.
 4. Percent works by giving a number then percent and another number. 
 5. Add backspace.
 6. Read the comments for details.
-7. No warranties though.
+7. Add keyboard support.
+8. No warranties though.

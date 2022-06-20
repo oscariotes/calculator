@@ -47,12 +47,18 @@ const calculator = {
   incomingSecondOperation: false,
   operator: null,
 };
+ // Screen display
+  function refreshDisplay(){
+    const display = document.querySelector('.calculator__display');
+    const {displayContent} = calculator;
+    if (displayContent.length <= 9){
+      display.textContent = calculator.displayContent;
+      return;
+    }else if (displayContent.length <=10){
+      display.textContent = "reduce digit"
+    }
+  }
 
-//This will update the display when a keys are clicked.
-function refreshDisplay() {
-  const display = document.querySelector('.calculator__display');
-  display.textContent = calculator.displayContent;
-}
 refreshDisplay();
 
 //Event listener for calculator buttons.
@@ -178,16 +184,17 @@ function backspace() {
   }
 }
 
-
+// Keyboard support function
 const keyBoard = document.querySelector('.calculator_functions');
 document.addEventListener('keydown', (Event) =>{
   const {displayContent} = calculator;
   const keyName = Event.key;
+  const keyCode = Event.code;
   if (keyName >='0' && keyName <='9'){
     keyInput(keyName);
     refreshDisplay();
     console.log
-  } else if (keyName == '/' || keyName == '*' || keyName == '-' || keyName == '+' || keyName == '=' || keyName == '%'){
+  } else if (keyName == '/' || keyName == '*'|| keyName == '+' || keyName == '=' || keyName == '%'){
     performCalculation(keyName);
     refreshDisplay();
   } else if (keyName == 'Backspace'){
@@ -196,7 +203,19 @@ document.addEventListener('keydown', (Event) =>{
   } else if (keyName == 'Delete'){
     all_clear();
     refreshDisplay();
-  } else if (keyName == 'Enter' || keyName == '='){
+  } else if (keyName == 'Decimal' || keyName == '.'){
+    inputDecimal(keyName);
+    refreshDisplay();
+  } else if (keyCode == 'Minus'){
+    inputNegative();
+    refreshDisplay();
+  } else if (keyName == "-" ){
+    performCalculation(keyName);
+    refreshDisplay();
+  } else if (keyName == 'Enter'){
+    performCalculation();
+    refreshDisplay();
+  } else if (keyName == '%'){
     performCalculation();
     refreshDisplay();
   } else {
