@@ -47,22 +47,22 @@ const calculator = {
   incomingSecondOperation: false,
   operator: null,
 };
- // Screen display
+// Screen display
 
-  function refreshDisplay(){
-    const display = document.querySelector('.calculator__display');
-    const {displayContent} = calculator;
+function refreshDisplay() {
+  const display = document.querySelector('.calculator__display');
+  const { displayContent } = calculator;
+  display.textContent = calculator.displayContent;
+  if (displayContent.length < 9) {
     display.textContent = calculator.displayContent;
-    if (displayContent.length < 9){ 
-      display.textContent = calculator.displayContent;
-      return;
-    }else if (displayContent.length < 10){
-      display.textContent = "reduce digit"
-    } else if (displayContent.length < 11){
-      display.textContent = "error!!!"
-    } else if (displayContent.length < 12){
-      all_clear();
-    }
+    return;
+  } else if (displayContent.length < 10) {
+    display.textContent = "reduce digit"
+  } else if (displayContent.length < 11) {
+    display.textContent = "error!!!"
+  } else if (displayContent.length < 12) {
+    all_clear();
+  }
 
 }
 refreshDisplay();
@@ -125,7 +125,6 @@ function keyInput(digit) {
   } else {
     calculator.displayContent = displayContent === '0' ? digit : displayContent + digit;
   }
-  console.log(calculator);
 }
 // toggle negative/positive
 function inputNegative() {
@@ -134,7 +133,6 @@ function inputNegative() {
   if (inputValue) {
     inputValue -= inputValue * 2;
     calculator.displayContent = inputValue;
-    console.log(inputValue)
   }
 }
 //add decimal and prevent double decimal
@@ -154,7 +152,6 @@ function performCalculation(performOperation) {
   const inputValue = parseFloat(displayContent);
   if (operator && calculator.incomingSecondOperation) {
     calculator.operator = performOperation;
-    console.log(calculator);
     return;
   }
   //first value stored in firstOperation.
@@ -162,13 +159,11 @@ function performCalculation(performOperation) {
     calculator.firstOperation = inputValue;
   } else if (operator) {
     const result = operate(firstOperation, inputValue, operator);
-    calculator.displayContent = `${parseFloat(result.toFixed(7))}`; 
+    calculator.displayContent = `${parseFloat(result.toFixed(7))}`;
     calculator.firstOperation = result;
   }
-
   calculator.incomingSecondOperation = true;
   calculator.operator = performOperation;
-  console.log(calculator);
 }
 
 //Calculator reset
@@ -177,7 +172,6 @@ function all_clear() {
   calculator.firstOperation = null;
   calculator.incomingSecondOperation = false;
   calculator.operator = null;
-  console.log(calculator);
 }
 
 //backspace
@@ -193,36 +187,35 @@ function backspace() {
 
 // Keyboard support function
 const keyBoard = document.querySelector('.calculator_functions');
-document.addEventListener('keydown', (Event) =>{
-  const {displayContent} = calculator;
+document.addEventListener('keydown', (Event) => {
+  const { displayContent } = calculator;
   const keyName = Event.key;
   const keyCode = Event.code;
-  if (keyName >='0' && keyName <='9'){
+  if (keyName >= '0' && keyName <= '9') {
     keyInput(keyName);
     refreshDisplay();
-    console.log
-  } else if (keyName == '/' || keyName == '*'|| keyName == '+' || keyName == '=' || keyName == '%'){
+  } else if (keyName == '/' || keyName == '*' || keyName == '+' || keyName == '=' || keyName == '%') {
     performCalculation(keyName);
     refreshDisplay();
-  } else if (keyName == 'Backspace'){
+  } else if (keyName == 'Backspace') {
     backspace(keyName);
     refreshDisplay();
-  } else if (keyName == 'Delete'){
+  } else if (keyName == 'Delete') {
     all_clear();
     refreshDisplay();
-  } else if (keyName == 'Decimal' || keyName == '.'){
+  } else if (keyName == 'Decimal' || keyName == '.') {
     inputDecimal(keyName);
     refreshDisplay();
-  } else if (keyCode == 'Minus'){
+  } else if (keyCode == 'Minus') {
     inputNegative();
     refreshDisplay();
-  } else if (keyName == "-" ){
+  } else if (keyName == "-") {
     performCalculation(keyName);
     refreshDisplay();
-  } else if (keyName == 'Enter'){
+  } else if (keyName == 'Enter') {
     performCalculation();
     refreshDisplay();
-  } else if (keyName == '%'){
+  } else if (keyName == '%') {
     performCalculation();
     refreshDisplay();
   } else {
@@ -230,9 +223,5 @@ document.addEventListener('keydown', (Event) =>{
   }
 })
 
-
-document.addEventListener('keydown', (Event) =>{
- console.log(Event.key)
-})
 
 
