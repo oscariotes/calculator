@@ -48,17 +48,23 @@ const calculator = {
   operator: null,
 };
  // Screen display
+
   function refreshDisplay(){
     const display = document.querySelector('.calculator__display');
     const {displayContent} = calculator;
-    if (displayContent.length <= 9){
+    display.textContent = calculator.displayContent;
+    if (displayContent.length < 9){ 
       display.textContent = calculator.displayContent;
       return;
-    }else if (displayContent.length <=10){
+    }else if (displayContent.length < 10){
       display.textContent = "reduce digit"
+    } else if (displayContent.length < 11){
+      display.textContent = "error!!!"
+    } else if (displayContent.length < 12){
+      all_clear();
     }
-  }
 
+}
 refreshDisplay();
 
 //Event listener for calculator buttons.
@@ -128,6 +134,7 @@ function inputNegative() {
   if (inputValue) {
     inputValue -= inputValue * 2;
     calculator.displayContent = inputValue;
+    console.log(inputValue)
   }
 }
 //add decimal and prevent double decimal
@@ -227,8 +234,5 @@ document.addEventListener('keydown', (Event) =>{
 document.addEventListener('keydown', (Event) =>{
  console.log(Event.key)
 })
-
-
-
 
 
